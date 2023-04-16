@@ -71,6 +71,36 @@ def digital_root(number):
 
 print(digital_root(45893))
 
+# Write a function that is given a 9 × 9 potentially solved Sudoku and returns True if it is solved
+# correctly and False if there is a mistake. The Sudoku is correctly solved if there
+# are no repeated numbers in any row or any column or in any of the nine “blocks.”
+
+sudoku_table = [[5,3,4,6,7,8,9,1,2],
+               [6,7,2,1,9,5,3,4,8],
+               [1,9,8,3,4,2,5,6,7],
+               [8,5,9,7,6,1,4,2,3],
+               [4,2,6,8,5,3,7,9,1],
+               [7,1,3,9,2,4,8,5,6],
+               [9,6,1,5,3,7,2,8,4],
+               [2,8,7,4,1,9,6,3,5],
+               [3,4,5,2,8,6,1,7,9]]
+
+
+
+def sudoku_valid(sudoku_table):
+    blocks = []
+    for i in [0, 3, 6]:
+        for j in [0, 3, 6]:
+            block = [sudoku_table[i + m][j + n] for m in range(3) for n in range(3)]
+            blocks.append(block)
+    if all(len(set(i)) == 9 for i in sudoku_table) and all(len(set(i)) == 9 for i in blocks) and all(len(set(k)) == 9 for k in [[sudoku_table[i][j] for i in range(len(sudoku_table))] for j in range(len(sudoku_table))]):
+        print("valid")
+    else:
+        print("Invalid")
+
+
+sudoku_valid(sudoku_table)
+
 
 
 
