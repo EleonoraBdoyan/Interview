@@ -1,0 +1,57 @@
+# ToDo List
+# Write a task organizing program.
+# The aim of the program is to provide a console interface, with the help of which the user can see his/her daily
+# tasks. Each task should be only one sentence.
+# The user should be able to add tasks, see all the tasks, mark if the task is done or not and remove the task from
+# the list if necessary.
+# For the actions (mentioned above) to be performed the program should provide a list of commands that correspond to
+# those actions.
+# The tasks should be kept in a separate text file, so that they are not lost when the user closes the program.
+dictionary = {}
+f = open("tasks.txt", "w")
+
+def add_task():
+    f = open("tasks.txt", "w")
+    dictionary[num] = text
+    for key in dictionary:
+        f.write(f"{key}\t{dictionary[key]}\n")
+
+def see_task():
+    print(open("tasks.txt").read())
+
+def mark_task():
+    f = open("tasks.txt", "w")
+    dictionary[number] += "-is done"
+    print(dictionary)
+    for key in dictionary:
+        f.write(f"{key}\t{dictionary[key]}\n")
+
+
+def remove_task():
+    f = open("tasks.txt", "w")
+    dictionary.pop(number)
+    for key in dictionary:
+        f.write(f"{key}\t{dictionary[key]}\n")
+
+while True:
+    question = input("Enter add to add task, see to see task, mark to mark task, remove to remove task, close to close the programm. ")
+    if question == "add":
+        num = input("Enter number of task. ")
+        text  = input("Enter task. ")
+        add_task()
+    elif question == "see":
+        see_task()
+    elif question == "mark":
+        number = input("Enter number of task. ")
+        mark_task()
+    elif question == "remove":
+        numb = input("Enter number of task. ")
+        remove_task()
+    elif question == "close":
+        break
+    else:
+        print("Enter add, see, mark or remove. ")
+
+
+
+
