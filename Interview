@@ -129,5 +129,63 @@ f1.seek(0)
 print(f1.read())
 
 
+# The Library Management System is a program that allows users to manage a library collection of books.
+# The system provides the following functionalities:
+# Add Books: The user is allowed to enter the full name of the author, the name of the book and its publication date
+# . The list of all the books should be kept in a text file.
+# Remove Books: The user is allowed to remove a book from the list by using its name.
+# View All Books: The user can see the list of all the books in the library.
+# Sort Books Alphabetically: The user can make the sorted list of all the books in the library.
+# The system should store the library's book collection in a text file. When the program starts,
+# it should read the file and load the books into memory. When the user makes changes to the library,
+# such as adding or removing a book, the program should update the file accordingly. To implement this
+# system, you can use Python's built-in file handling capabilities to read and write to the file that stores
+# the library collection. You can also use Python's data structures like lists and dictionaries to store the
+# book collection in memory and provide the necessary functionalities like sorting and removing books.
 
+
+dictionary  = {}
+
+def file_update():
+    file = open("library.txt", "w+")
+    for i in dictionary:
+        file.write(f"{i}\t{dictionary[i]}\n")
+
+
+def add_books():
+    book_name = input("Enter book name: ")
+    book_author = input("Enter book author: ")
+    date = input("Enter publication date: ")
+    dictionary[book_name] = book_author + " " + date
+    file_update()
+
+def remove_books():
+    book_name = input("Enter book name: ")
+    dictionary.pop(book_name)
+    file_update()
+    print(open("library.txt").read())
+
+
+def view_books():
+    print(open("library.txt").read())
+
+def sort_books():
+    for i in sorted(dictionary):
+        print(i, dictionary[i])
+
+
+
+
+while True:
+    action = input("Enter add to add books, remove to remove books, view to view all books, sort to sort books, close to close programm.  ")
+    if action.lower() == "add":
+        add_books()
+    elif action.lower() == "remove":
+        remove_books()
+    elif action.lower() == "view":
+        view_books()
+    elif action.lower() == "sort":
+        sort_books()
+    elif action.lower() == "close":
+        break
 
