@@ -232,3 +232,98 @@ most_used_letter = {i for i in word_content_lower if word_content_lower.count(i)
 file2  = open("library2.txt", "w")
 file2.write(f"The number of words is {num_words}\nThe number of letters is {num_letters}\nThe number of sentences is {num_sentence}\nThe most used letter in a text is {most_used_letter}\nThe most used word in a text is {most_used_word}")
 
+
+
+# Phone Book
+# Implement a program, that allows to register a contact information (name, surname, phone number, address).
+# The program should provide a console interface , where the user is able to add a new contact , edit the contact
+#
+# information of the already existing one and remove one of the contacts.
+# All the registered information should be kept in a text file, so that it is not lost after closing the program.
+# After any change of the contact information it should be saved in the existing file. During the time the program
+# runs it should be able to read from the text file where all the information is kept.
+
+dictionary = {}
+file = open("contact.txt", "w")
+
+def update():
+    file = open("contact.txt", "w")
+    for i in dictionary:
+        file.write(f"{i}\t{dictionary[i]}\n")
+
+
+
+def add():
+    name  = input("Enter name: ")
+    surname = input("Enter surname: ")
+    phone_number = input("Enter phone number: ")
+    address = input("Enter address: ")
+    dictionary[phone_number] = name + " " + surname + " " + address
+    update()
+
+def edit():
+    while True:
+        phone_number = input("Enter phone number: ")
+        if phone_number not in dictionary.keys():
+            print("Enter correct phone number: ")
+            continue
+        else:
+            edit_data = input("Enter what do you want to edit: name, surname, phone number or address: ")
+            if edit_data.lower() == "name":
+                name = input("Enter new name: ")
+                dictionary[phone_number] = name + " " + surname + " " + address
+                update()
+                break
+            if edit_data.lower() == "surname":
+                surname = input("Enter new surname: ")
+                dictionary[phone_number] = name + " " + surname + " " + address
+                update()
+                break
+            if edit_data.lower() == "address":
+                address = input("Enter new address: ")
+                dictionary[phone_number] = name + " " + surname + " " + address
+                update()
+                break
+            if edit_data.lower() == "phone number":
+                value = dictionary[phone_number]
+                dictionary.pop(phone_number)
+                phone_number_new = input("Enter  new phone number: ")
+                dictionary[phone_number_new] = value
+                update()
+                break
+
+
+def remove():
+    while True:
+        phone_number = input("Enter contact phone number you want to remove: ")
+        print(phone_number in dictionary.keys())
+        if phone_number in dictionary.keys():
+            dictionary.pop(phone_number)
+            update()
+            break
+        else:
+            print("Phone number not in contacts.")
+            continue
+
+def read():
+    file = open("contact.txt", "r")
+    print(file.read())
+
+
+
+while True:
+    action = input("Enter add, edit, remove, read or close: ")
+    if action.lower().strip() == "add":
+        add()
+    if action.lower().strip() == "edit":
+        edit()
+    if action.lower().strip() == "remove":
+        remove()
+    if action.lower().strip() == "read":
+        read()
+    if action.lower().strip() == "close":
+        break
+
+
+
+
