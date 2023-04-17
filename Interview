@@ -189,3 +189,46 @@ while True:
     elif action.lower() == "close":
         break
 
+
+# Write a program that works with a text file. The aim of the program is to read a text from the text
+# file and analyze it. Specifically it should count and print:
+# the number of words
+# the number of letters
+# the number of sentences
+# the most used letter in a text
+# the most used word in a text
+# For example if out text file contains this text:
+# “Hello from C++ world”
+# the program should give the following output:
+# Words: 4
+# Letters: 15 (special characters and space are not counted)
+# Sentences: 1
+# Letter frequency: o (both o and l are used 3 times so any of the letters is considered as a right answer)
+# Word frequency: 0 (there is no word that is used more than once)
+# The result should be kept in a separate text file.
+
+file = open("library.txt")
+list_content = file.read().split()
+print(list_content)
+num_words = 0
+num_letters = 0
+num_sentence = 0
+for i in list_content:
+    if i[0].isalpha():
+        num_words += 1
+        for j in i:
+            if j.isalpha():
+                num_letters += 1
+    if i[-1] == ".":
+        num_sentence += 1
+
+list_content_lower = [i.lower() for i in list_content]
+word_count = [list_content_lower.count(i) for i in list_content_lower]
+most_used_word  = {i for i in list_content_lower  if list_content_lower.count(i) == max(word_count)}
+word_content_lower = [j.lower() for i in list_content for j in i if j.isalpha()]
+letter_count = [word_content_lower.count(i) for i in word_content_lower]
+most_used_letter = {i for i in word_content_lower if word_content_lower.count(i) == max(letter_count)}
+
+file2  = open("library2.txt", "w")
+file2.write(f"The number of words is {num_words}\nThe number of letters is {num_letters}\nThe number of sentences is {num_sentence}\nThe most used letter in a text is {most_used_letter}\nThe most used word in a text is {most_used_word}")
+
