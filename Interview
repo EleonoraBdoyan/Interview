@@ -326,4 +326,52 @@ while True:
 
 
 
+# File Compression: Write a Python program that compresses a text file by replacing repeated characters
+# with a single character and a count of the number of repetitions. For example, the string "aaabbbcccc"
+# should be compressed to "a3b3c4". Your program should prompt the user to enter the name of the input file
+# and the name of the output file
+
+
+
+output_file_name = input("Enter output file name: ")
+try:
+    output_file = open(output_file_name, "r")
+except FileNotFoundError:
+    print(f"There is no file with name {output_file_name}. ")
+
+else:
+    compressed_text = []
+    for i in output_file.read().split():
+
+        s = i[0]
+        count = 1
+
+        for j in range(1,len(i)):
+            if i[j] == i[j-1]:
+                count += 1
+            if i[j] != i[j-1] and count > 1:
+                s += str(count)
+                count = 1
+                s += i[j]
+            if j == len(i) -1 and count > 1:
+                s += str(count)
+        compressed_text.append(s)
+finally:
+    output_file.close()
+input_file_name = input("Enter input file name: ")
+
+input_file = open(input_file_name, "w+")
+for i in compressed_text:
+    input_file.write(f"{i}\t")
+input_file.seek(0)
+print(input_file.read())
+
+
+
+
+
+
+
+
+
 
