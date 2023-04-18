@@ -370,6 +370,44 @@ print(input_file.read())
 
 
 
+# You are given a file namelist.txt that contains a bunch of names. Print out all the names in the list
+# in which the vowels a, e, i, o, and u appear in order (with repeats possible). The first vowel in the
+# name must be a and after the first u, it is okay for there to be other vowels. An example is Ace Elvin Coulson.
+
+
+file = open("heloo.txt", "r")
+name_list = file.read().split()
+print(name_list)
+vowels = ["a","e","i","o","u"]
+name_with_vowel = []
+for i in name_list:
+    for j in i:
+        if j.lower() in vowels:
+            name_with_vowel.append(i)
+name_with_vowel = list(set(name_with_vowel))
+print(name_with_vowel)
+s = ""
+s_list = list(s)
+def vowels_str(word):
+    s = ""
+    for i in word:
+        if i.lower() in vowels:
+            s += i.lower()
+    return s
+l = list(map(vowels_str,name_with_vowel))
+print(l)
+result = []
+for i in range(len(name_with_vowel)):
+    if "u" not in name_with_vowel[i]:
+        if l[i] == "".join(sorted(l[i])):
+            result.append(name_with_vowel[i])
+    if "u" in name_with_vowel[i]:
+        u_index = l[i].index("u")
+        if l[i][:u_index + 1] == "".join(sorted(l[i][:u_index + 1])):
+            result.append(name_with_vowel[i])
+
+print(result)
+
 
 
 
