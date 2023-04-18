@@ -410,6 +410,29 @@ print(result)
 
 
 
+# An acronym is an abbreviation that uses the first letter of each word in a phrase. We see them everywhere.
+# For instance, NCAA for National Collegiate Athletic Association or NBC for National Broadcasting Company.
+# Write a program where the user enters an acronym and the program randomly selects words from a wordlist such
+# that the words would fit the acronym. Below is some typical output generated when I ran the program:
+import random
+wordlist = ["National", "collegiate", "Athletic", "Association", "Broadcasting", "Company"]
+acronym = (input("Enter acronym. ")).lower()
+wordlist_lower = list(((i[0].lower() + i[1:]) for i in wordlist))
+pack_list = []
+for i in range(len(acronym)):
+    pack_list.append(list())
+for i in range(len(acronym)):
+    for j in wordlist_lower:
+        if j[0] == acronym[i].lower():
+            pack_list[i].append(j)
+if all(len(i) > 0 for i in pack_list):
+    s = ""
+    for i in range(len(pack_list)):
+        s += random.choice(pack_list[i]) + " "
+    print(s)
+else:
+    print("There are no words that fit the acronym.")
+
 
 
 
