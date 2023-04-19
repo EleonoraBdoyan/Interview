@@ -434,5 +434,12 @@ else:
     print("There are no words that fit the acronym.")
 
 
+C:\Users\vikto\Documents\pythonProject1\venv\Scripts\python.exe C:\Users\vikto\Documents\pythonProject1\main.py 
+Enter password length if you want to set password length, else press 'Enter'. 
+if you want to set character type enter 1 for digit, else press "Enter". 1
+Enter password. 17283949484757
+Password is strong enough.
+
+Process finished with exit code 0
 
 
