@@ -434,12 +434,57 @@ else:
     print("There are no words that fit the acronym.")
 
 
-C:\Users\vikto\Documents\pythonProject1\venv\Scripts\python.exe C:\Users\vikto\Documents\pythonProject1\main.py 
-Enter password length if you want to set password length, else press 'Enter'. 
-if you want to set character type enter 1 for digit, else press "Enter". 1
-Enter password. 17283949484757
-Password is strong enough.
 
-Process finished with exit code 0
+
+
+# JSON Editor
+# Write a program that takes as an input argument a text file in JSON format. The program should be
+# able to decode the content of the JSON file and allow to make changes directly on the file. For example
+# you have a file with the following content:
+# {“name”: “Angela”, “age”:23, “address”: {“street”: “halabyan”}}
+# When passing the file to the program it decodes the content and allows the user to make changes
+# on a file, for example, the user enters the following command:
+# name=Jonny
+# in the result the program should change the JSON file to:
+# {“name”: “Jonny”, “age”:23, “address”: {“street”: “halabyan”}}
+# Another example, the user enters the following command:
+# address.street=tumanyan
+# in the result the program should change the JSON file to:
+# {'name': 'Jonny', 'age':23, 'address': {street: tumanyan}}
+# Write a program that allows to work with any depth of a JSON file. You can find more information
+# on a JSON file format here -> JSON
+import json
+with open("file.json", "r") as f:
+    data = json.load(f)
+    print(type(data))
+def flatten_data(data):
+    flat_dict = {}
+    for key, value in data.items():
+       if not isinstance(value,dict):
+            flat_dict[key] = value
+       else:
+            flat_dict.update(flatten_data(value))
+    return flat_dict
+flat_dict = flatten_data(data)
+keys = [i for i in flat_dict]
+parameter = input("Enter changes you want to do in the following format: parameter.parameter=change ")
+change = parameter.split("=")[-1]
+parameter = parameter.split("=")[:-1]
+parameter = parameter[0].split(".")
+parameter = [i.strip() for i in parameter]
+print(parameter)
+if len(parameter) > 1:
+    for i in range(len(parameter)-1):
+        k = data.get(parameter[i])
+        if i == len(parameter) - 2:
+            k[parameter[-1]] = change
+else:
+    data[parameter[0]] = change
+with open("file.json", "w") as f:
+    json.dump(data,f)
+
+
+
+
 
 
