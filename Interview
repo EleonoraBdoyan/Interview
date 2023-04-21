@@ -637,5 +637,30 @@ else:
            print(dictionary[i]())
 
 
+# Crossword cheater: When working on a crossword puzzle, often you will have a word where you know several
+# of the letters, but not all of them. You can write a computer program to help you. For the program,
+# the user should be able to input a word with the letters they know filled in and asterisks for those
+# they don’t know. The program should print out a list of all words that fit that description. For example,
+# the input th***ly should return all the words that could work, namely thickly and thirdly.
+list_of_words = ["thickly", "thirdly", "hello", "world", "python", "version"]
+
+def crossword_cheater(word):
+    list_of_word_length =[]
+    for i in list_of_words:
+        if len(i) == len(word):
+            list_of_word_length.append(i)
+    print(list_of_word_length)
+    result  = []
+    for i in list_of_word_length:
+        k = list(zip(i,word))
+        if all(len(set(j)) == 1 for j in k if "*" not in j):
+            result.append(i)
+    return result if result else "No word matching."
+
+word  = input("Enter a word with the letters you know filled in and asterisks for those you don’t know. ")
+print(crossword_cheater(word))
+
+
+
 
 
