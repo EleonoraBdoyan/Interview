@@ -719,4 +719,69 @@ def play():
 
 play()
 
+# File Encryption and Decryption
+#
+# Write a Python program that allows users to encrypt and decrypt files using a symmetric-key algorithm.
+# The program should prompt the user to specify the name of the file to encrypt or decrypt, along with the
+# key to use for encryption or decryption.
+#
+# The program should use a symmetric-key algorithm, such as AES or DES, to encrypt and decrypt files. You can
+# use a third-party library such as PyCryptodome or cryptography to implement the algorithm.
+# The program should handle input errors gracefully, and provide helpful error messages if the file cannot be
+# found or if the user enters invalid input.
+# The program should create a new file with the encrypted or decrypted data, leaving the original file unchanged.
+# The program should use a secure method for storing the encryption key, such as a password-protected file or a
+# keyfile protected by a master password.
+# The program should allow the user to specify custom options for encryption or decryption, such as the mode of
+# operation or the padding scheme.
+from cryptography.fernet import Fernet
+key = Fernet.generate_key()
+print(key)
+print(str(key))
+
+with open("mykey.key", "wb") as mykey:
+    mykey.write(key)
+
+def enc():
+    try:
+
+        file_answ = input("Enter file name.")
+        with open(file_answ, "rb") as original_file:
+            original = original_file.read()
+    except FileNotFoundError:
+        print("There is no such a file.")
+    else:
+        f = Fernet(key)
+        encrepted = f.encrypt(original)
+        enc_file_name = input("Enter name for encrepted file. ")
+        with open(enc_file_name, "wb") as encrepted_file:
+            encrepted_file.write(encrepted)
+def dec():
+    try:
+        file_answ = input("Enter  encrepted file name. ")
+        with open(file_answ, "rb") as encrepted_file:
+            encrepted = encrepted_file.read()
+            print(encrepted)
+    except FileNotFoundError:
+        print("There is no such a file.")
+    else:
+        f = Fernet(key)
+        decrepted = f.decrypt(encrepted)
+        print(decrepted)
+        dec_file_name = input("Enter name for decrepted file. ")
+        with open(dec_file_name, "wb") as decrepted_file:
+            decrepted_file.write(decrepted)
+
+key_answ = input("Enter key. ")
+if bytes(key_answ, 'utf-8') != key:
+    print("Wrong key")
+else:
+    action = input("Enter 1 ro encrypt file, 2 to decrypt file. ")
+    if action == "1":
+        enc()
+    elif action == "2":
+        dec()
+    elif action != "1" or action != "2":
+        print("You must enter 1 or 2.")
+
 
