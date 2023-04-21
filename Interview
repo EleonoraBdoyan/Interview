@@ -662,5 +662,61 @@ print(crossword_cheater(word))
 
 
 
+# Hangman Games writes a Python program that allows users to play a game of hangman.
+# The program should generate a random word from a predefined list of words, and then prompt
+# the user to guess letters in the word. The user should be allowed to make a limited number of
+# incorrect guesses before they lose the game.
+#
+# The program should use a pre-defined list of words, stored in a separate text file, with one word per line.
+# The program should display the number of letters in the word, with each unknown letter represented by an underscore (_).
+# The user should be allowed to guess one letter at a time. The program should display the letters that have
+# already been guessed, along with the remaining number of guesses.
+# If the user correctly guesses a letter, the program should update the display to show the letter
+# in the correct position(s).
+# If the user makes an incorrect guess, the program should decrement the remaining number of guesses
+# and display a hangman graphic.
+# If the user correctly guesses all of the letters in the word before running out of guesses, the
+# program should display a message indicating that they won the game.
+# If the user runs out of guesses before correctly guessing all of the letters in the word, the
+# program should display a message indicating that they lost the game, and reveal the word.
+
+import random
+pre_def = open("heloo.txt").read().split()
+word_to_guess = random.choice(pre_def)
+print(word_to_guess)
+display = []
+
+def play():
+    wrong_answer = len(word_to_guess) // 2
+    display = []
+    for i in range(len(word_to_guess)):
+        display.append("-")
+    print(display)
+    while True:
+        print(f'Guess the following word: {display}. You have {wrong_answer} chance for wrong answer.')
+        position = input("Enter number of position: ")
+        if not position.isdigit() or not 1 <= int(position) <= len(word_to_guess):
+            print("Enter correct position. ")
+            continue
+        letter = input("Enter letter: ")
+        if display[int(position) -1] != "-":
+            print("The position is already filled: Try again.")
+            continue
+        if display[int(position) -1] == "-" and letter == word_to_guess[int(position) -1]:
+            display[int(position)-1] = letter
+            print(display)
+            print("".join(display))
+            if  "".join(display) == word_to_guess:
+                print("You won.")
+                break
+        if display[int(position) - 1] == "-" and letter != word_to_guess[int(position) - 1]:
+            print("The answer is not correct.")
+            wrong_answer = wrong_answer - 1
+            if wrong_answer < 0:
+                print("You lost.")
+                break
+
+
+play()
 
 
