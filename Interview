@@ -561,8 +561,6 @@ data_type_list = ["1", "2","3","4","5", "6" ]
 func_list = [email_valid, date_valid, number_valid, card_valid, phone_valid]
 
 dictionary = dict(zip(data_type_list,func_list))
-print(dictionary)
-print(data_type)
 
 
 for i in dictionary:
@@ -573,6 +571,70 @@ for i in dictionary:
 
 
 
+
+# Write a Python program that allows users to analyze a text file and extract useful information.
+# The program should prompt the user to enter the name of the file to analyze, and then offer several analysis options:
+# Word Count: The program should count the total number of words in the file.
+# Character Count: The program should count the total number of characters (including spaces) in the file.
+# Line Count: The program should count the total number of lines in the file.
+# Most Frequent Words: The program should display the 10 most frequent words in the file, along with their frequencies.
+# Word Search: The program should prompt the user to enter a word to search for in the file, and then display
+# all instances of that word, along with the line numbers where they occur.
+
+file_name  = input("Enter file name: ")
+try:
+    f = open(f"{file_name}.txt")
+except FileNotFoundError:
+    print("File does not exist.Enter another file name.")
+
+else:
+    def word_count():
+        w_count = 0
+        for i in f.read().split():
+            if any(j.isalpha() for j in i):
+                w_count += 1
+        return w_count
+
+
+    def character_count():
+        n = f.read().count("\n")
+        f.seek(0)
+        return len(f.read()) - n
+
+
+    def line_count():
+        l_count = 0
+        for i in f.readlines():
+            l_count += 1
+        return l_count
+
+    def freq_word():
+        f_count = []
+        for i in f.read().split():
+            if any(j.isalpha() for j in i):
+                f_count.append(i.lower())
+        result = {i:f_count.count(i) for i in f_count}
+        return sorted(result.items(), key=lambda x:x[1], reverse=True)[:10]
+
+    def word_search():
+        word = input("Enter a word. ")
+        if word in f.read():
+            result = []
+            for i,j in enumerate(open(f"{file_name}.txt").readlines(), start=1):
+                if word.strip() in j:
+                    result.append(f"'{word}' appears {j.count(word)} time in line N {i}")
+            return result
+        return "No such a word in the file"
+
+
+
+    action = input("Enter 1 for word count, 2 for character count, 3 for line count, 4 for most frequent word, 5 for word search. ")
+    data_type_list = ["1", "2", "3", "4", "5"]
+    func_list = [word_count, character_count, line_count, freq_word, word_search]
+    dictionary = dict(zip(data_type_list, func_list))
+    for i in dictionary:
+       if action == i:
+           print(dictionary[i]())
 
 
 
