@@ -543,11 +543,21 @@ def phone_valid(input_data):
             (input_data[0:3] == "374" and input_data[3:5] in valid_oper and len(input_data[5:]) == 6):
         return "Valid"
     return "Invalid phone number."
+    
+def url_valid(input_data):
+    domain_extension = ["com", "net", "ru", "uk", "org", "info", "eu"]
+    first_part = r"https://"
+    if (input_data.startswith(first_part) and "." in input_data and \
+        input_data[input_data.find(r"//") +2:input_data.find(".")].isalpha()):
+        for i in domain_extension:
+            if input_data[input_data.find(".")+1:].startswith(i):
+                return "Valid"
+    return "Invalid"
 
 
 
-data_type = input("Enter 1 to validate Email, 2 for Data YYYY-MM-DD, 3 for Number, 4 for Credit Card Number, 5 for Mobile phone number ")
-data_type_list = ["1", "2","3","4","5"]
+data_type = input("Enter 1 to validate Email, 2 for Data YYYY-MM-DD, 3 for Number, 4 for Credit Card Number, 5 for Mobile phone number, 6 for Website URL. ")
+data_type_list = ["1", "2","3","4","5", "6" ]
 func_list = [email_valid, date_valid, number_valid, card_valid, phone_valid]
 
 dictionary = dict(zip(data_type_list,func_list))
